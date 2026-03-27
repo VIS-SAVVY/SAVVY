@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ────────────────────────────────── */
+:root {
+  --grad-start:  #13131f;
+  --grad-mid:    #16213e;
+  --grad-end:    #0f3460;
+
+  --bg:          #13131f;
+  --bg-card:     rgba(255,255,255,0.06);
+  --bg-light:    #f0f4f8;
+  --bg-code:     rgba(0,0,0,0.45);
+
+  --accent:      #4ade80;
+  --accent-dim:  #166534;
+  --text:        #e8eaf0;
+  --muted:       #a8b5cc;
+  --border:      rgba(255,255,255,0.12);
+
+  --font-display: Arial, sans-serif;
+  --font-body:    Arial, sans-serif;
+  --font-mono:    'Courier New', Courier, monospace;
+
+  /* inner content max-width */
+  --content-max: 900px;
+}
+
+/* ── Reset ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  background: var(--grad-start);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4 { font-family: Arial, sans-serif; }
+pre,code { font-family: 'Courier New', Courier, monospace; }
+img, video, iframe { max-width: 100%; height: auto; display: block; }
+
+/* ── Full-bleed section backgrounds ──────────────── */
+/* CRITICAL: sections must NOT have horizontal padding.
+   All padding goes on .inner instead.                */
+.section-dark {
+  width: 100%;
+  background: linear-gradient(160deg, var(--grad-start) 0%, var(--grad-mid) 55%, var(--grad-end) 100%);
+}
+.section-light {
+  width: 100%;
+  background: var(--bg-light);
+}
+
+/* ── Inner content wrapper ────────────────────────── */
+.inner {
+  max-width: var(--content-max);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+}
+
+/* ── Section vertical padding ─────────────────────── */
+.sec-pad {
+  padding-top:    clamp(40px, 7vw, 72px);
+  padding-bottom: clamp(40px, 7vw, 72px);
+}
+
+/* ── Divider ──────────────────────────────────────── */
+.divider {
+  width: 52px; height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 0 auto 2.5rem;
+}
+
+/* ── Placeholder box ──────────────────────────────── */
+.ph-box {
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-card);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  color: var(--muted);
+}
+.section-light .ph-box {
+  background: #e8edf4;
+  color: #8a9ab5;
+}
+
+/* ── Code block ───────────────────────────────────── */
+.code-block {
+  background: var(--bg-code);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 14px;
+  line-height: 1.65;
+  color: #a8b5d1;
+  white-space: pre;
+  tab-size: 2;
+  word-break: keep-all;
+  backdrop-filter: blur(4px);
+}
+
+/* ── App root ─────────────────────────────────────── */
+#app { width: 100%; overflow-x: hidden; }
+
+/* ── Scrollbar ────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
