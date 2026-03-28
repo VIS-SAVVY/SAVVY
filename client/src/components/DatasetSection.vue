@@ -173,20 +173,20 @@ const currentPageParticipants = computed(() => {
   font-size: 18px;
   font-weight: 700;
   color: var(--text);
-  max-width: 820px;
+  max-width: 100%;
   margin: 0 auto 1.2rem;
   letter-spacing: 0.01em;
 }
 
 /* Processing image placeholder */
 .processing-img-box {
-  max-width: 820px;
+  max-width: 100%;
   margin: 0 auto 2.5rem;
   border-radius: 12px;
   overflow: hidden;
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
-  min-height: 260px;
+  min-height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -227,7 +227,7 @@ const currentPageParticipants = computed(() => {
   font-size: 16px;
   color: var(--muted);
   line-height: 1.85;
-  max-width: 820px;
+  max-width: 100%;
   margin: 0 auto 2.5rem;
   text-align: left;
 }
@@ -241,7 +241,7 @@ const currentPageParticipants = computed(() => {
   border: 1px solid rgba(74, 222, 128, 0.3);
   border-radius: 10px;
   padding: 1rem 1.4rem;
-  max-width: 820px;
+  max-width: 100%;
   margin: 0 auto 2.5rem;
 }
 
@@ -298,7 +298,7 @@ const currentPageParticipants = computed(() => {
 
 /* Per-participant section */
 .per-part-section {
-  max-width: 820px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
