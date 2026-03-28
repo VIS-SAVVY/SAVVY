@@ -40,9 +40,8 @@
           <line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
         <p>
-          <strong>Partial Release.</strong> The dataset currently available for download is a
-          representative subset of the full collection. The complete dataset will be publicly
-          released upon acceptance of the paper.
+          <strong>Partial Release.</strong> The dataset currently available for download is a subset of the data
+          used to train our models. The complete dataset will be publicly released upon acceptance of the paper.
         </p>
       </div>
 
