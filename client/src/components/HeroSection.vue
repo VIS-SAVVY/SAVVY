@@ -9,13 +9,25 @@
           {{ link.label }}
         </a>
       </nav>
+
+      <!-- Teaser image area inside hero card, like HyperMOOC -->
+      <div class="hero-teaser">
+        <div class="hero-teaser-ph">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" class="teaser-ph-icon">
+            <rect x="4" y="8" width="40" height="32" rx="3"/>
+            <circle cx="16" cy="20" r="4"/>
+            <path d="M4 32 l10-8 8 6 8-10 14 12"/>
+          </svg>
+          <span class="teaser-ph-label">Teaser Figure</span>
+          <span class="teaser-ph-hint">Replace with your paper's teaser figure (e.g., system overview, key results)</span>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
 const navLinks = [
-  { href: '#teaser',     label: 'Teaser' },
   { href: '#abstract',   label: 'Abstract' },
   { href: '#video',      label: 'Video' },
   { href: '#dataset',    label: 'Dataset' },
@@ -36,11 +48,12 @@ const navLinks = [
 .hero-card {
   background: #ffffff;
   border-radius: 20px;
-  padding: clamp(28px, 5vw, 52px) clamp(20px, 6vw, 56px) clamp(24px, 4vw, 44px);
-  max-width: 860px;
+  padding: clamp(28px, 5vw, 52px) clamp(20px, 6vw, 56px) 0;
+  max-width: 1100px;
   width: 100%;
   text-align: center;
   box-shadow: 0 8px 40px rgba(0,0,0,.45);
+  overflow: hidden;
 }
 .paper-title {
   font-family: Arial, sans-serif;
@@ -58,6 +71,7 @@ const navLinks = [
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
+  margin-bottom: clamp(24px, 4vw, 40px);
 }
 .nav-link {
   display: inline-block;
@@ -94,6 +108,53 @@ const navLinks = [
 .nav-link:hover::after {
   width: 100%;
 }
+
+/* Teaser area inside hero card */
+.hero-teaser {
+  width: 100%;
+  margin: 0 -0px;
+  border-top: 1px solid #e5e7eb;
+}
+.hero-teaser-ph {
+  width: 100%;
+  min-height: clamp(220px, 35vw, 460px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f3f4f6;
+  color: #9ca3af;
+  padding: 2.5rem 2rem;
+}
+.teaser-ph-icon {
+  width: clamp(40px, 6vw, 56px);
+  height: clamp(40px, 6vw, 56px);
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+.teaser-ph-label {
+  font-family: Arial, sans-serif;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 600;
+  color: #6b7280;
+}
+.teaser-ph-hint {
+  font-family: Arial, sans-serif;
+  font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+  color: #9ca3af;
+  max-width: 380px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Actual teaser image (when replacing placeholder) */
+.hero-teaser-img {
+  width: 100%;
+  display: block;
+  border-top: 1px solid #e5e7eb;
+}
+
 @media (max-width: 480px) {
   .hero-card { border-radius: 14px; }
 }
