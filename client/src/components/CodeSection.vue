@@ -1,7 +1,7 @@
 <template>
   <section id="code" class="section-dark">
     <div class="inner">
-      <h2 class="sec-title">Attention Quantification Module and Framework</h2>
+      <h2 class="sec-title">Attention Quantification Framework</h2>
       <div class="sec-divider"></div>
 
       <!-- Step 1: Fusion -->
@@ -99,7 +99,7 @@ loss = td_loss + 0.1 * episode_loss</code></pre>
 </template>
 
 <script setup lang="ts">
-// Attention Quantification Module and Framework
+// Attention Quantification Framework
 // Design: Deep Space Academic — Arial body, Courier New code, blue-gradient bg
 </script>
 
