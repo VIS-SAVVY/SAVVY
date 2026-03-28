@@ -36,7 +36,7 @@
   font-size: 16px;
   color: var(--muted);
   line-height: 1.85;
-  max-width: 720px;
+  max-width: 100%;
   margin: 0 auto;
   text-align: left;
 }
