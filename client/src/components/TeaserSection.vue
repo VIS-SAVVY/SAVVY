@@ -2,7 +2,7 @@
   <section id="teaser" class="section-dark sec-pad">
     <div class="teaser-inner">
       <img
-        src="/SAVVY/images/teaser.jpg"
+        src="/images/teaser.jpg"
         alt="Teaser: Overview of the SAVVY system"
         class="teaser-img"
       />
