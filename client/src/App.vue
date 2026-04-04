@@ -4,6 +4,7 @@
     <TeaserSection />
     <AbstractSection />
     <VideoSection />
+    <WorkflowSection />
     <DatasetSection />
     <CodeSection />
     <ReferencesSection />
@@ -15,6 +16,7 @@ import HeroSection       from './components/HeroSection.vue'
 import TeaserSection     from './components/TeaserSection.vue'
 import AbstractSection   from './components/AbstractSection.vue'
 import VideoSection      from './components/VideoSection.vue'
+import WorkflowSection   from './components/WorkflowSection.vue'
 import DatasetSection    from './components/DatasetSection.vue'
 import CodeSection       from './components/CodeSection.vue'
 import ReferencesSection from './components/ReferencesSection.vue'
