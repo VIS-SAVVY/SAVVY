@@ -57,27 +57,22 @@
           <line x1="12" y1="16" x2="12.01" y2="16"/>
         </svg>
         <p>
-          <strong>Partial Release.</strong> The dataset currently available for download is a subset of the data
-          used to train our models. The complete dataset will be publicly released upon acceptance of the paper.
+          <strong>Dataset Availability.</strong> The dataset is not currently available for download.
+          Download links will be provided upon acceptance of the paper.
+          The download buttons below are disabled at this time.
         </p>
       </div>
 
-      <!-- ③ Full ZIP download -->
+      <!-- ④ Full ZIP download (disabled) -->
       <div class="dl-wrap">
-        <a
-          class="dl-btn"
-          href="https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/dataset.zip"
-          download="SAVVY_dataset_partial.zip"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <span class="dl-btn dl-btn-disabled">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="dl-icon">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
           Download Partial Dataset (ZIP, ~129 MB)
-        </a>
+        </span>
       </div>
 
       <!-- ④ Per-participant download cards -->
@@ -88,14 +83,10 @@
         </p>
 
         <div class="part-grid">
-          <a
+          <span
             v-for="p in currentPageParticipants"
             :key="p.id"
-            :href="p.url"
-            :download="p.filename"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="part-card"
+            class="part-card part-card-disabled"
           >
             <div class="part-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -107,7 +98,7 @@
             </div>
             <div class="part-card-label">{{ p.name }}</div>
             <div class="part-card-sub">{{ p.size }}</div>
-          </a>
+          </span>
         </div>
 
         <!-- Pagination -->
@@ -150,21 +141,21 @@ import { ref, computed } from 'vue'
 const PER_PAGE = 5
 
 const participants = [
-  { id: 1,  name: 'Subject 01',  filename: 'S1.csv',  size: '~35.6 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S1.csv' },
-  { id: 2,  name: 'Subject 02',  filename: 'S2.csv',  size: '~35.2 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S2.csv' },
-  { id: 3,  name: 'Subject 03',  filename: 'S3.csv',  size: '~33.9 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S3.csv' },
-  { id: 4,  name: 'Subject 04',  filename: 'S4.csv',  size: '~35.6 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S4.csv' },
-  { id: 5,  name: 'Subject 05',  filename: 'S5.csv',  size: '~38.5 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S5.csv' },
-  { id: 6,  name: 'Subject 06',  filename: 'S6.csv',  size: '~35.6 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S6.csv' },
-  { id: 7,  name: 'Subject 07',  filename: 'S7.csv',  size: '~35.1 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S7.csv' },
-  { id: 8,  name: 'Subject 08',  filename: 'S8.csv',  size: '~34.3 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S8.csv' },
-  { id: 9,  name: 'Subject 09',  filename: 'S9.csv',  size: '~35.0 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S9.csv' },
-  { id: 10, name: 'Subject 10',  filename: 'S10.csv', size: '~54.4 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S10.csv' },
-  { id: 11, name: 'Subject 11',  filename: 'S11.csv', size: '~38.2 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S11.csv' },
-  { id: 12, name: 'Subject 12',  filename: 'S12.csv', size: '~38.9 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S12.csv' },
-  { id: 13, name: 'Subject 13',  filename: 'S13.csv', size: '~51.0 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S13.csv' },
-  { id: 14, name: 'Subject 14',  filename: 'S14.csv', size: '~34.9 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S14.csv' },
-  { id: 15, name: 'Subject 15',  filename: 'S15.csv', size: '~34.8 MB', url: 'https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/S15.csv' },
+  { id: 1,  name: 'Subject 01',  filename: 'S1.csv',  size: '~35.6 MB', url: '' },
+  { id: 2,  name: 'Subject 02',  filename: 'S2.csv',  size: '~35.2 MB', url: '' },
+  { id: 3,  name: 'Subject 03',  filename: 'S3.csv',  size: '~33.9 MB', url: '' },
+  { id: 4,  name: 'Subject 04',  filename: 'S4.csv',  size: '~35.6 MB', url: '' },
+  { id: 5,  name: 'Subject 05',  filename: 'S5.csv',  size: '~38.5 MB', url: '' },
+  { id: 6,  name: 'Subject 06',  filename: 'S6.csv',  size: '~35.6 MB', url: '' },
+  { id: 7,  name: 'Subject 07',  filename: 'S7.csv',  size: '~35.1 MB', url: '' },
+  { id: 8,  name: 'Subject 08',  filename: 'S8.csv',  size: '~34.3 MB', url: '' },
+  { id: 9,  name: 'Subject 09',  filename: 'S9.csv',  size: '~35.0 MB', url: '' },
+  { id: 10, name: 'Subject 10',  filename: 'S10.csv', size: '~54.4 MB', url: '' },
+  { id: 11, name: 'Subject 11',  filename: 'S11.csv', size: '~38.2 MB', url: '' },
+  { id: 12, name: 'Subject 12',  filename: 'S12.csv', size: '~38.9 MB', url: '' },
+  { id: 13, name: 'Subject 13',  filename: 'S13.csv', size: '~51.0 MB', url: '' },
+  { id: 14, name: 'Subject 14',  filename: 'S14.csv', size: '~34.9 MB', url: '' },
+  { id: 15, name: 'Subject 15',  filename: 'S15.csv', size: '~34.8 MB', url: '' },
 ]
 
 const currentPage = ref(1)
@@ -297,12 +288,13 @@ const currentPageParticipants = computed(() => {
   padding: 0.75rem 2rem;
   border-radius: 8px;
   text-decoration: none;
-  transition: background 0.2s, transform 0.15s;
 }
 
-.dl-btn:hover {
-  background: #22c55e;
-  transform: translateY(-2px);
+.dl-btn-disabled {
+  background: rgba(255,255,255,0.12) !important;
+  color: rgba(255,255,255,0.3) !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }
 
 .dl-icon {
@@ -338,27 +330,19 @@ const currentPageParticipants = computed(() => {
   padding: 1.6rem 1rem;
   text-decoration: none;
   color: var(--text);
-  transition: background 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.18s;
-  cursor: pointer;
   min-height: 120px;
 }
 
-.part-card:hover {
-  background: rgba(74, 222, 128, 0.1);
-  border-color: rgba(74, 222, 128, 0.55);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(74, 222, 128, 0.12);
+.part-card-disabled {
+  opacity: 0.35;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }
 
 .part-card-icon {
   width: 36px;
   height: 36px;
   color: var(--muted);
-  transition: color 0.18s;
-}
-
-.part-card:hover .part-card-icon {
-  color: #4ade80;
 }
 
 .part-card-icon svg {
