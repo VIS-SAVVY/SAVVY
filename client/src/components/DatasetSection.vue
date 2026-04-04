@@ -4,8 +4,11 @@
       <h2 class="sec-title">Dataset</h2>
       <div class="divider"></div>
 
-      <!-- ① Dataset Processing -->
-      <h3 class="sub-title">Dataset Processing</h3>
+      <!-- ① Dataset Form Preview -->
+      <h3 class="sub-title">Dataset Form Preview</h3>
+    </div>
+    <!-- Full-width image breakout -->  
+    <div class="processing-full-wrap">
       <div class="processing-img-box">
         <img
           src="/images/dataset_preview.jpg"
@@ -13,12 +16,16 @@
           class="processing-img"
         />
       </div>
+      <div class="inner">
       <p class="processing-note">
         <strong>Note:</strong> The table above is a <em>sample illustration</em> of the dataset format.
         The column structure and data types faithfully reflect the actual recordings, but all numerical
         values shown are <strong>simulated and do not represent real experimental measurements</strong>.
         The complete dataset with authentic data will be made publicly available upon acceptance of the paper.
       </p>
+      </div>
+    </div>
+    <div class="inner">
 
       <!-- ② Dataset Description -->
       <h3 class="sub-title">Dataset Description</h3>
@@ -180,20 +187,31 @@ const currentPageParticipants = computed(() => {
   letter-spacing: 0.01em;
 }
 
-/* Processing image */
+/* Processing image – full-width breakout */
+.processing-full-wrap {
+  width: 100%;
+  padding: 0 clamp(16px, 3vw, 48px);
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+
 .processing-img-box {
-  max-width: 100%;
+  width: 100%;
+  max-width: 1600px;
   margin: 0 auto 1.2rem;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: #ffffff;
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
 }
 
 .processing-img {
   width: 100%;
+  height: auto;
   display: block;
   border-radius: 12px;
+  object-fit: unset;
 }
 
 .processing-note {
