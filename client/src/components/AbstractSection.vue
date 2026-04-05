@@ -1,11 +1,11 @@
 <template>
   <section id="abstract" class="section-dark sec-pad">
-    <div class="inner">
+    <div class="abstract-inner">
       <h2 class="sec-title">Abstract</h2>
       <div class="divider"></div>
       <p class="abstract-body">
         Video-Based Learning (VBL) has become a popular delivery medium of education in the past decade, ranging from
-        online education to hybrid learning. Students’ rising expectations for video quality have motivated teachers to enhance the design of
+        online education to hybrid learning. Students' rising expectations for video quality have motivated teachers to enhance the design of
         instructional videos before releasing them. Analyzing the attention of pilot cohorts in advance has become a conventional optimization
         strategy to guide course improvement. However, existing attention quantification algorithms are highly susceptible to noise in real-world
         environments, degrading estimation accuracy. Moreover, even when attention data are available, teachers must still invest substantial
@@ -24,6 +24,15 @@
 </template>
 
 <style scoped>
+.abstract-inner {
+  max-width: 1100px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 40px);
+  padding-right: clamp(16px, 4vw, 40px);
+}
+
 .sec-title {
   font-family: Arial, sans-serif;
   font-size: 28.8px;
@@ -32,6 +41,7 @@
   text-align: center;
   margin-bottom: 12px;
 }
+
 .abstract-body {
   font-size: 16px;
   color: var(--muted);
