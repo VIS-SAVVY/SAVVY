@@ -1,6 +1,6 @@
 <template>
   <section class="hero-wrap">
-    <!-- White title card: title + nav only -->
+    <!-- Card 1: title + nav buttons -->
     <div class="hero-card">
       <h1 class="paper-title">
         SAVVY: Student Attention Visualization for Video-based Learning Analysis
@@ -12,8 +12,8 @@
       </nav>
     </div>
 
-    <!-- Paper figure area: same width as card, directly below it -->
-    <div class="hero-img-wrap">
+    <!-- Card 2: paper figure, independent rounded card -->
+    <div class="hero-img-card">
       <img
         src="/images/fig2.jpg"
         alt="Paper Figure / System Overview"
@@ -35,7 +35,7 @@ const navLinks = [
 </script>
 
 <style scoped>
-/* Outer section: gradient bg, column flex so card and img-wrap stack */
+/* Outer section: gradient bg, column flex so the two cards stack */
 .hero-wrap {
   width: 100%;
   box-sizing: border-box;
@@ -44,18 +44,20 @@ const navLinks = [
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
+  gap: 24px;
 }
 
-/* White title card */
+/* Card 1: title + nav */
 .hero-card {
   background: #ffffff;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
   padding: clamp(28px, 5vw, 52px) clamp(20px, 6vw, 56px) clamp(24px, 4vw, 44px);
   max-width: 1100px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 4px 0 rgba(0,0,0,.15);
+  box-shadow:
+    0 4px 24px rgba(0,0,0,.18),
+    0 1.5px 0 rgba(0,0,0,.10);
 }
 
 .paper-title {
@@ -104,13 +106,15 @@ const navLinks = [
   transform: translateY(-2px);
 }
 
-/* Image area: same max-width as card, flush below it, rounded bottom */
-.hero-img-wrap {
+/* Card 2: paper figure */
+.hero-img-card {
   max-width: 1100px;
   width: 100%;
-  border-radius: 0 0 20px 20px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,.45);
+  box-shadow:
+    0 4px 24px rgba(0,0,0,.18),
+    0 1.5px 0 rgba(0,0,0,.10);
   background: #ffffff;
 }
 
@@ -121,7 +125,7 @@ const navLinks = [
 }
 
 @media (max-width: 480px) {
-  .hero-card { border-radius: 14px 14px 0 0; }
-  .hero-img-wrap { border-radius: 0 0 14px 14px; }
+  .hero-card      { border-radius: 14px; }
+  .hero-img-card  { border-radius: 14px; }
 }
 </style>
