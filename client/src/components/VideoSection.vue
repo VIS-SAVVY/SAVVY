@@ -12,7 +12,7 @@
           preload="metadata"
           poster=""
         >
-          <source src="https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/test_clip_30s.mp4" type="video/mp4" />
+          <source src="https://dataset-1341757241.cos.ap-nanjing.myqcloud.com/SAVVY_Video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
