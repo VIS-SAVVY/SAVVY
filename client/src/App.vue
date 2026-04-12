@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <IntroOverlay v-if="showIntro" @complete="handleIntroComplete" />
+    <transition name="intro-fade">
+      <IntroOverlay v-if="showIntro" @complete="handleIntroComplete" />
+    </transition>
 
     <div class="page-content" :class="{ 'page-content--ready': !showIntro }">
       <HeroSection />
@@ -63,18 +65,11 @@ const handleIntroComplete = () => {
 
 .page-content {
   opacity: 0;
-  transform: scale(1.015);
-  filter: blur(18px);
-  transition:
-    opacity 0.8s ease,
-    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.8s ease;
-  will-change: opacity, transform, filter;
+  transition: opacity 0.4s ease;
+  will-change: opacity;
 }
 
 .page-content--ready {
   opacity: 1;
-  transform: none;
-  filter: none;
 }
 </style>
