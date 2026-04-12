@@ -11,8 +11,10 @@ const emit = defineEmits(['complete'])
 
 const animationContainer = ref(null)
 const LOADER_DURATION_MS = 2500
-const LOTTIE_SCRIPT_SRC = '/reference-loader/lottie.min.js'
-const LOTTIE_DATA_PATH = '/reference-loader/data.json'
+const BASE_URL = import.meta.env.BASE_URL || '/'
+const withBase = (relativePath) => new URL(relativePath, window.location.origin + BASE_URL).toString()
+const LOTTIE_SCRIPT_SRC = withBase('reference-loader/lottie.min.js')
+const LOTTIE_DATA_PATH = withBase('reference-loader/data.json')
 
 let completeTimer = null
 let lottieAnimation = null
