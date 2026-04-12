@@ -8,15 +8,16 @@
     >
       <div class="intro-overlay__bg"></div>
       <div class="intro-overlay__vignette"></div>
-      <div class="intro-overlay__grid"></div>
+      <div class="intro-overlay__noise"></div>
 
       <div class="intro-overlay__stage">
-        <div class="intro-overlay__halo"></div>
+        <div class="intro-overlay__aura intro-overlay__aura--white"></div>
+        <div class="intro-overlay__aura intro-overlay__aura--blue"></div>
+
         <div class="intro-overlay__wordmark-shell">
+          <div class="intro-overlay__wordmark intro-overlay__wordmark--ghost"></div>
           <div class="intro-overlay__wordmark intro-overlay__wordmark--white"></div>
-          <div class="intro-overlay__wordmark intro-overlay__wordmark--gradient"></div>
-          <div class="intro-overlay__wordmark intro-overlay__wordmark--outline"></div>
-          <span class="intro-overlay__sheen"></span>
+          <div class="intro-overlay__wordmark intro-overlay__wordmark--blue"></div>
         </div>
       </div>
     </div>
@@ -37,12 +38,12 @@ let completeTimer = 0
 onMounted(() => {
   leaveTimer = window.setTimeout(() => {
     isLeaving.value = true
-  }, 2850)
+  }, 3200)
 
   completeTimer = window.setTimeout(() => {
     visible.value = false
     emit('complete')
-  }, 3650)
+  }, 4050)
 })
 
 onBeforeUnmount(() => {
@@ -61,14 +62,16 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 50% 42%, rgba(141, 186, 255, 0.14) 0%, rgba(141, 186, 255, 0.02) 30%, rgba(19, 19, 31, 0) 58%),
-    linear-gradient(160deg, #0a0f18 0%, #101728 34%, #13131f 70%, #0c1425 100%);
+    radial-gradient(circle at 50% 44%, rgba(206, 232, 255, 0.09) 0%, rgba(146, 191, 255, 0.04) 22%, rgba(19, 19, 31, 0) 48%),
+    linear-gradient(180deg, #090b12 0%, #0d1018 36%, #11131d 100%);
   isolation: isolate;
 }
 
 .intro-overlay__bg,
 .intro-overlay__vignette,
-.intro-overlay__grid {
+.intro-overlay__noise,
+.intro-overlay__aura,
+.intro-overlay__wordmark {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -76,57 +79,60 @@ onBeforeUnmount(() => {
 
 .intro-overlay__bg {
   background:
-    radial-gradient(circle at 50% 45%, rgba(220, 235, 255, 0.16) 0%, rgba(220, 235, 255, 0.04) 24%, rgba(220, 235, 255, 0) 58%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 62%);
-  animation: introPulse 3.05s ease-out forwards;
+    radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.028) 18%, rgba(255, 255, 255, 0) 44%),
+    radial-gradient(circle at 50% 46%, rgba(79, 167, 255, 0.18) 0%, rgba(79, 167, 255, 0.08) 24%, rgba(79, 167, 255, 0) 58%);
+  animation: introBackdrop 3.15s ease-out forwards;
 }
 
 .intro-overlay__vignette {
-  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 42%, rgba(4, 8, 18, 0.78) 100%);
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 38%, rgba(4, 8, 18, 0.82) 100%);
 }
 
-.intro-overlay__grid {
+.intro-overlay__noise {
+  opacity: 0.1;
   background-image:
-    linear-gradient(rgba(163, 189, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 189, 255, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.22) 54%, transparent 82%);
-  opacity: 0;
-  animation: introGrid 3s ease forwards;
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.35) 60%, transparent 86%);
 }
 
 .intro-overlay__stage {
   position: relative;
-  width: min(82vw, 980px);
+  width: min(84vw, 1000px);
   min-height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.intro-overlay__halo {
-  position: absolute;
+.intro-overlay__aura {
   inset: 50% auto auto 50%;
-  width: min(68vw, 760px);
-  aspect-ratio: 2.2 / 1;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle at center, rgba(124, 174, 255, 0.34) 0%, rgba(89, 142, 255, 0.16) 34%, rgba(31, 67, 135, 0) 74%);
-  filter: blur(22px);
+  width: min(72vw, 820px);
+  aspect-ratio: 2.35 / 1;
+  border-radius: 999px;
+  mix-blend-mode: screen;
+}
+
+.intro-overlay__aura--white {
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 32%, rgba(255, 255, 255, 0) 72%);
+  filter: blur(36px);
   opacity: 0;
-  animation: introHalo 2.5s ease forwards;
+  animation: introWhiteAura 1.6s cubic-bezier(0.16, 0.84, 0.26, 1) forwards;
+}
+
+.intro-overlay__aura--blue {
+  background: radial-gradient(circle at center, rgba(97, 196, 255, 0.34) 0%, rgba(53, 135, 255, 0.18) 38%, rgba(53, 135, 255, 0) 76%);
+  filter: blur(30px);
+  opacity: 0;
+  animation: introBlueAura 1.8s cubic-bezier(0.18, 0.82, 0.22, 1) 1.32s forwards;
 }
 
 .intro-overlay__wordmark-shell {
   position: relative;
-  width: min(74vw, 920px);
+  width: min(76vw, 920px);
   aspect-ratio: 198 / 32;
-  overflow: hidden;
-}
-
-.intro-overlay__wordmark,
-.intro-overlay__sheen {
-  position: absolute;
-  inset: 0;
 }
 
 .intro-overlay__wordmark {
@@ -142,178 +148,183 @@ onBeforeUnmount(() => {
   transform-origin: center;
 }
 
-.intro-overlay__wordmark--white {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 247, 255, 0.96) 48%, rgba(215, 231, 255, 0.9) 100%);
+.intro-overlay__wordmark--ghost {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(226, 238, 255, 0.92) 100%);
   opacity: 0;
-  filter: blur(26px) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
-  transform: scale(1.05);
-  animation: introWhiteReveal 1.45s cubic-bezier(0.18, 0.8, 0.24, 1) forwards;
+  filter: blur(38px);
+  transform: scale(1.12);
+  animation: introGhostGather 1.55s cubic-bezier(0.16, 0.84, 0.28, 1) forwards;
 }
 
-.intro-overlay__wordmark--gradient {
+.intro-overlay__wordmark--white {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(247, 251, 255, 0.98) 45%, rgba(226, 238, 255, 0.94) 100%);
+  opacity: 0;
+  filter: blur(34px) brightness(1.24);
+  transform: scale(1.08);
+  animation:
+    introWhiteReveal 1.55s cubic-bezier(0.16, 0.84, 0.28, 1) forwards,
+    introWhiteToHighlight 1.4s ease-out 1.45s forwards;
+}
+
+.intro-overlay__wordmark--blue {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(226, 236, 255, 0.92) 22%, rgba(176, 205, 255, 0.96) 44%, rgba(115, 165, 255, 0.98) 68%, rgba(69, 122, 235, 0.98) 100%),
-    linear-gradient(90deg, #eef4ff 0%, #d8e7ff 20%, #f7fbff 38%, #8cb8ff 58%, #4f86ea 80%, #84a3ea 100%);
+    linear-gradient(180deg, #f7fbff 0%, #e5f4ff 18%, #8dd6ff 55%, #58b7ff 76%, #2d73ff 100%),
+    linear-gradient(90deg, #f6fbff 0%, #d8ecff 23%, #96d8ff 52%, #49b2ff 74%, #2e73ff 100%);
   background-blend-mode: screen, normal;
   opacity: 0;
-  filter: blur(22px) drop-shadow(0 0 8px rgba(142, 187, 255, 0.12));
+  filter: blur(20px) saturate(0.92);
   transform: scale(1.035);
-  clip-path: inset(0 0 100% 0);
-  animation: introGradientFill 1.7s cubic-bezier(0.22, 0.86, 0.2, 1) 0.82s forwards;
-}
-
-.intro-overlay__wordmark--outline {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(160, 192, 255, 0.24) 100%);
-  opacity: 0;
-  filter: blur(0.5px);
-  transform: scale(1.002);
-  animation: introOutlineIn 0.9s ease 1.35s forwards;
-}
-
-.intro-overlay__sheen {
-  background: linear-gradient(108deg, transparent 18%, rgba(255, 255, 255, 0.05) 42%, rgba(255, 255, 255, 0.82) 50%, rgba(255, 255, 255, 0.09) 58%, transparent 84%);
-  transform: translateX(-128%) skewX(-18deg);
-  mix-blend-mode: screen;
-  opacity: 0;
-  animation: introSheen 1.15s ease 1.22s forwards;
+  animation: introBlueShift 1.65s cubic-bezier(0.18, 0.82, 0.22, 1) 1.32s forwards;
 }
 
 .intro-overlay--leaving {
-  animation: introOverlayExit 0.72s cubic-bezier(0.55, 0, 0.45, 1) forwards;
+  animation: introOverlayExit 0.78s cubic-bezier(0.55, 0, 0.45, 1) forwards;
 }
 
 .intro-fade-leave-active {
-  transition: opacity 0.25s ease;
+  transition: opacity 0.24s ease;
 }
 
 .intro-fade-leave-to {
   opacity: 0;
 }
 
+@keyframes introBackdrop {
+  0% {
+    opacity: 0.72;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes introGhostGather {
+  0% {
+    opacity: 0;
+    filter: blur(42px);
+    transform: scale(1.14);
+  }
+  28% {
+    opacity: 0.26;
+  }
+  72% {
+    opacity: 0.16;
+    filter: blur(18px);
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.01);
+  }
+}
+
 @keyframes introWhiteReveal {
   0% {
     opacity: 0;
-    filter: blur(34px) drop-shadow(0 0 0 rgba(255, 255, 255, 0));
-    transform: scale(1.07);
+    filter: blur(36px) brightness(1.34);
+    transform: scale(1.09);
   }
-  42% {
-    opacity: 0.96;
+  20% {
+    opacity: 0.05;
+  }
+  58% {
+    opacity: 0.92;
+    filter: blur(8px) brightness(1.18);
   }
   100% {
     opacity: 1;
-    filter: blur(0) drop-shadow(0 0 26px rgba(232, 242, 255, 0.2));
+    filter: blur(0) brightness(1);
     transform: scale(1);
   }
 }
 
-@keyframes introGradientFill {
+@keyframes introWhiteToHighlight {
+  0% {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+  }
+  100% {
+    opacity: 0.24;
+    filter: blur(0.35px) brightness(1.08);
+  }
+}
+
+@keyframes introBlueShift {
   0% {
     opacity: 0;
-    clip-path: inset(0 0 100% 0);
-    filter: blur(22px) drop-shadow(0 0 8px rgba(142, 187, 255, 0.12));
-    transform: scale(1.03);
+    filter: blur(18px) saturate(0.86);
+    transform: scale(1.04);
   }
-  25% {
-    opacity: 0.34;
+  18% {
+    opacity: 0.08;
   }
-  62% {
-    opacity: 0.88;
-    clip-path: inset(0 0 18% 0);
-    filter: blur(6px) drop-shadow(0 0 18px rgba(122, 170, 255, 0.18));
+  58% {
+    opacity: 0.74;
+    filter: blur(5px) saturate(1.06);
   }
   100% {
     opacity: 1;
-    clip-path: inset(0 0 0 0);
-    filter: blur(0) drop-shadow(0 0 24px rgba(122, 170, 255, 0.2));
+    filter: blur(0) saturate(1.12);
     transform: scale(1);
   }
 }
 
-@keyframes introOutlineIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.46;
-  }
-}
-
-@keyframes introHalo {
+@keyframes introWhiteAura {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.7);
+    transform: translate(-50%, -50%) scale(0.78);
   }
-  46% {
-    opacity: 1;
+  48% {
+    opacity: 0.9;
   }
   100% {
-    opacity: 0.88;
+    opacity: 0.28;
     transform: translate(-50%, -50%) scale(1);
   }
 }
 
-@keyframes introPulse {
-  0% {
-    opacity: 0.2;
-    transform: scale(1.08);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes introGrid {
+@keyframes introBlueAura {
   0% {
     opacity: 0;
-    transform: scale(1.06);
+    transform: translate(-50%, -50%) scale(0.9);
   }
-  40% {
-    opacity: 0.18;
-  }
-  100% {
-    opacity: 0.12;
-    transform: scale(1);
-  }
-}
-
-@keyframes introSheen {
-  0% {
-    opacity: 0;
-    transform: translateX(-128%) skewX(-18deg);
-  }
-  18% {
-    opacity: 0.92;
+  58% {
+    opacity: 0.76;
   }
   100% {
-    opacity: 0;
-    transform: translateX(132%) skewX(-18deg);
+    opacity: 0.44;
+    transform: translate(-50%, -50%) scale(1.02);
   }
 }
 
 @keyframes introOverlayExit {
   0% {
     opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    transform: scale(1.016);
-    filter: blur(8px);
+    filter: blur(10px);
+    transform: scale(1.015);
   }
 }
 
 @media (max-width: 768px) {
   .intro-overlay__stage {
-    width: min(90vw, 720px);
+    width: min(92vw, 720px);
     min-height: 180px;
   }
 
   .intro-overlay__wordmark-shell {
-    width: min(88vw, 720px);
+    width: min(90vw, 720px);
   }
 
-  .intro-overlay__grid {
-    background-size: 36px 36px;
+  .intro-overlay__noise {
+    background-size: 38px 38px;
   }
 }
 
