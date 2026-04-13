@@ -43,7 +43,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const emit = defineEmits(['complete'])
 
-const DEFAULT_INTRO_DURATION_MS = 2200
+const DEFAULT_INTRO_DURATION_MS = 1900
 const BASE_URL = import.meta.env.BASE_URL || '/'
 const FONT_NAME = 'Rindu'
 const savvyText = 'Savvy'
