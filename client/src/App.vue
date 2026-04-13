@@ -5,7 +5,7 @@
     </transition>
 
     <div class="page-content" :class="{ 'page-content--ready': !showIntro }">
-      <HeroSection />
+      <HeroSection :animate-on-ready="!showIntro" />
       <TeaserSection />
       <AbstractSection />
       <VideoSection />
