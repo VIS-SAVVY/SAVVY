@@ -6,7 +6,7 @@
 
       <div class="hero-content">
         <div class="hero-center">
-          <div class="logo-stack">
+          <div class="logo-stack" :class="{ 'is-revealed': animationStarted }">
             <img
               class="logo logo-vis"
               :src="asset('images/vis2026-logo.svg')"
@@ -14,23 +14,46 @@
             />
           </div>
 
-          <h1 class="paper-title">
+          <h1
+            class="paper-title"
+            :class="{ 'is-revealed': animationStarted, 'is-shadow-visible': shadowVisible }"
+          >
             <span class="title-line title-line-with-logo">
-              <span class="inline-logo-group">
-                <img
-                  class="inline-savvy-logo"
-                  :src="asset('images/savvy-system-logo.svg')"
-                  alt="SAVVY"
-                />
-                <span class="inline-logo-colon">:</span>
+              <span class="reveal-mask" style="--delay: 1100ms">
+                <span class="reveal-segment inline-logo-group">
+                  <img
+                    class="inline-savvy-logo"
+                    :src="asset('images/savvy-system-logo.svg')"
+                    alt="SAVVY"
+                  />
+                  <span class="inline-logo-colon">:</span>
+                </span>
               </span>
-              <span class="title-text-rest">Student Attention Visualization</span>
+
+              <span
+                v-for="(word, index) in titleLineOneWords"
+                :key="`line-one-${word}-${index}`"
+                class="reveal-mask"
+                :style="{ '--delay': `${1280 + index * 180}ms` }"
+              >
+                <span class="reveal-segment title-word">{{ word }}</span>
+              </span>
             </span>
-            <span class="title-line">for Video-based Learning Analysis</span>
+
+            <span class="title-line title-line-two">
+              <span
+                v-for="(word, index) in titleLineTwoWords"
+                :key="`line-two-${word}-${index}`"
+                class="reveal-mask"
+                :style="{ '--delay': `${1960 + index * 180}ms` }"
+              >
+                <span class="reveal-segment title-word">{{ word }}</span>
+              </span>
+            </span>
           </h1>
         </div>
 
-        <nav class="hero-nav" aria-label="Primary sections">
+        <nav class="hero-nav" :class="{ 'is-revealed': animationStarted }" aria-label="Primary sections">
           <a v-for="link in navLinks" :key="link.href" :href="link.href" class="nav-link">
             {{ link.label }}
           </a>
@@ -51,6 +74,15 @@
 </template>
 
 <script setup>
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+
+const props = defineProps({
+  animateOnReady: {
+    type: Boolean,
+    default: true,
+  },
+})
+
 const asset = (relativePath) => `${import.meta.env.BASE_URL}${relativePath.replace(/^\/+/, '')}`
 
 const navLinks = [
@@ -62,9 +94,65 @@ const navLinks = [
   { href: '#references', label: 'References' },
 ]
 
+const titleLineOneWords = ['Student', 'Attention', 'Visualization']
+const titleLineTwoWords = ['for', 'Video-based', 'Learning', 'Analysis']
+
 const heroBackgroundStyle = {
   backgroundImage: `url(${asset('images/teaser.jpg')})`,
 }
+
+const animationStarted = ref(false)
+const shadowVisible = ref(false)
+
+let animationTimer = null
+let shadowTimer = null
+
+const startEntranceAnimation = () => {
+  animationStarted.value = false
+  shadowVisible.value = false
+
+  if (animationTimer) {
+    window.clearTimeout(animationTimer)
+  }
+
+  if (shadowTimer) {
+    window.clearTimeout(shadowTimer)
+  }
+
+  animationTimer = window.setTimeout(() => {
+    animationStarted.value = true
+  }, 520)
+
+  shadowTimer = window.setTimeout(() => {
+    shadowVisible.value = true
+  }, 3460)
+}
+
+onMounted(() => {
+  if (props.animateOnReady) {
+    startEntranceAnimation()
+  }
+  window.addEventListener('pageshow', startEntranceAnimation)
+})
+
+watch(
+  () => props.animateOnReady,
+  (ready, previousReady) => {
+    if (ready && !previousReady) {
+      startEntranceAnimation()
+    }
+  },
+)
+
+onBeforeUnmount(() => {
+  if (animationTimer) {
+    window.clearTimeout(animationTimer)
+  }
+  if (shadowTimer) {
+    window.clearTimeout(shadowTimer)
+  }
+  window.removeEventListener('pageshow', startEntranceAnimation)
+})
 </script>
 
 <style scoped>
@@ -131,6 +219,12 @@ const heroBackgroundStyle = {
   justify-content: center;
   gap: 10px;
   margin-bottom: 6px;
+  opacity: 0;
+  transform: translate3d(0, 22px, 0) scale(0.96);
+}
+
+.logo-stack.is-revealed {
+  animation: visLogoReveal 1180ms cubic-bezier(0.22, 1, 0.36, 1) 180ms forwards;
 }
 
 .logo {
@@ -153,39 +247,78 @@ const heroBackgroundStyle = {
   line-height: 1.04;
   letter-spacing: -0.03em;
   text-wrap: balance;
+  text-shadow: none;
+  transition: text-shadow 420ms ease, filter 420ms ease;
+}
+
+.paper-title.is-shadow-visible {
   text-shadow: 0 3px 8px rgba(0, 0, 0, 0.62), 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.45), 0 16px 36px rgba(0, 0, 0, 0.5), 0 8px 20px rgba(0, 0, 0, 0.38);
 }
 
+.paper-title.is-shadow-visible .reveal-mask {
+  overflow: visible;
+}
+
 .title-line {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(8px, 0.9vw, 14px);
   white-space: nowrap;
 }
 
+.title-line + .title-line {
+  margin-top: 0.08em;
+}
+
 .title-line-with-logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 0.9vw, 14px);
+  flex-wrap: nowrap;
 }
 
-.inline-logo-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  flex: 0 0 auto;
-  transform: translateY(0.02em);
+.title-line-two {
+  gap: clamp(10px, 1vw, 15px);
 }
 
-.inline-savvy-logo {
-  width: clamp(208px, 13.6vw, 295px);
-  max-width: 43vw;
-  flex: 0 0 auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.28));
-  transform: scaleY(1.08);
-  transform-origin: center bottom;
-  opacity: 0.98;
+.reveal-mask {
+  display: inline-flex;
+  overflow: hidden;
+  padding-block: 0.08em 0.14em;
 }
+
+.reveal-segment {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0;
+  transform: translate3d(0, 115%, 0) scale(0.92);
+  filter: blur(10px);
+  will-change: transform, opacity, filter;
+}
+
+.paper-title.is-revealed .reveal-segment {
+  animation: textyReveal 980ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+  .inline-logo-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+    transform: translateY(0.02em);
+  }
+
+
+  .inline-savvy-logo {
+    width: clamp(208px, 13.6vw, 295px);
+    max-width: 43vw;
+    flex: 0 0 auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.28));
+    transform: translateY(2px) scaleY(1.12);
+    transform-origin: center bottom;
+    opacity: 0.98;
+  }
+
 
 .inline-logo-colon {
   display: inline-block;
@@ -195,7 +328,7 @@ const heroBackgroundStyle = {
   line-height: 1;
 }
 
-.title-text-rest {
+.title-word {
   display: inline-block;
 }
 
@@ -206,6 +339,13 @@ const heroBackgroundStyle = {
   justify-content: center;
   gap: 12px;
   align-self: end;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.hero-nav.is-revealed {
+  animation: navReveal 720ms ease forwards;
+  animation-delay: 2680ms;
 }
 
 .nav-link {
@@ -258,6 +398,64 @@ const heroBackgroundStyle = {
   object-fit: contain;
 }
 
+@keyframes visLogoReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0) scale(0.96);
+    filter: blur(12px);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1.012);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes textyReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 115%, 0) scale(0.92);
+    filter: blur(10px);
+  }
+  58% {
+    opacity: 1;
+    transform: translate3d(0, -6%, 0) scale(1.01);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes navReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-stack,
+  .hero-nav,
+  .reveal-segment {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+}
+
 @media (max-width: 900px) {
   .hero-content {
     width: min(100%, calc(100% - 32px));
@@ -289,12 +487,11 @@ const heroBackgroundStyle = {
   }
 
   .title-line {
+    flex-wrap: wrap;
     white-space: normal;
   }
 
   .title-line-with-logo {
-    display: flex;
-    flex-wrap: wrap;
     gap: 8px;
   }
 
