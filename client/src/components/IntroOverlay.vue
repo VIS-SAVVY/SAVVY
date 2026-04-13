@@ -43,7 +43,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const emit = defineEmits(['complete'])
 
-const DEFAULT_INTRO_DURATION_MS = 2800
+const DEFAULT_INTRO_DURATION_MS = 2200
 const BASE_URL = import.meta.env.BASE_URL || '/'
 const FONT_NAME = 'Rindu'
 const savvyText = 'Savvy'
@@ -292,7 +292,7 @@ onBeforeUnmount(() => {
 }
 
 :global(.intro-fade-leave-active) {
-  transition: opacity 0.4s ease;
+  transition: opacity 0.2s ease;
 }
 
 :global(.intro-fade-leave-from) {
